@@ -4,6 +4,7 @@
  */
 package VIEW;
 
+import DAO.FuncionarioDAO;
 import DTO.FuncionarioDTO;
 
 /**
@@ -89,6 +90,9 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setNome_funcionario(nome);
         objfuncionariodto.setEndereco_funcionario(endereco);
+        
+        FuncionarioDAO objfuncionariodao = new FuncionarioDAO();
+        objfuncionariodao.cadastrarFuncionario(objfuncionariodto);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
