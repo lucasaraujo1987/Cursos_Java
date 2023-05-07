@@ -6,6 +6,10 @@ package VIEW;
 
 import DAO.FuncionarioDAO;
 import DTO.FuncionarioDTO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +22,7 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
      */
     public FrmFuncionarioVIEW() {
         initComponents();
+        listarValoresFuncionario();
     }
 
     /**
@@ -29,11 +34,29 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaFuncionario = new javax.swing.JTable();
+        btnPesquisar = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,19 +71,44 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
             }
         });
 
+        tabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaFuncionario);
+
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCadastrar)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(txtEndereco))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(txtEndereco))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisar)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,8 +122,12 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCadastrar)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnPesquisar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,17 +135,21 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome, endereco;
-        
+
         nome = txtNome.getText();
         endereco = txtEndereco.getText();
-        
+
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setNome_funcionario(nome);
         objfuncionariodto.setEndereco_funcionario(endereco);
-        
+
         FuncionarioDAO objfuncionariodao = new FuncionarioDAO();
         objfuncionariodao.cadastrarFuncionario(objfuncionariodto);
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        listarValoresFuncionario();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,9 +188,35 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaFuncionario;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+    private void listarValoresFuncionario() {
+        try {
+            FuncionarioDAO objfuncionarioDAO = new FuncionarioDAO();
+            DefaultTableModel model = (DefaultTableModel) tabelaFuncionario.getModel();
+            model.setNumRows(0);
+
+            ArrayList<FuncionarioDTO> lista = objfuncionarioDAO.PesquisarFuncionario();
+
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getId_funcionario(),
+                    lista.get(num).getNome_funcionario(),
+                    lista.get(num).getEndereco_funcionario()
+                });
+            }
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarValores VIEW" + erro);
+        }
+    }
+
 }
