@@ -33,28 +33,48 @@ public class FuncionarioDAO {
             JOptionPane.showMessageDialog(null, "FuncionaioDAO Cadastrar" + erro);
         }
     }
-    
-    public ArrayList<FuncionarioDTO> PesquisarFuncionario(){
+
+    public ArrayList<FuncionarioDTO> PesquisarFuncionario() {
         String sql = "select * from funcionario";
-        
+
         conn = new ConexaoDAO().conectaBD();
-        
+
         try {
             pstm = conn.prepareStatement(sql);
             rs = pstm.executeQuery();
-            
+
             while (rs.next()) {
                 FuncionarioDTO objfuncionarioDTO = new FuncionarioDTO();
                 objfuncionarioDTO.setId_funcionario(rs.getInt("id_funcionario"));
                 objfuncionarioDTO.setNome_funcionario(rs.getString("name_funcionario"));
                 objfuncionarioDTO.setEndereco_funcionario(rs.getString("endereco_funcionario"));
-                
+
                 lista.add(objfuncionarioDTO);
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "FuncionarioDAO Pesquisar" + erro);
         }
         return lista;
+    }
+
+    public void AltrarFuncionario(FuncionarioDTO objfuncionariodto) {
+        String sql = "update funcionario set name_funcionario = ?, endereco_funcionario = ? where id_funcionario = ?";
+
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, objfuncionariodto.getNome_funcionario());
+            pstm.setString(2, objfuncionariodto.getEndereco_funcionario());
+            pstm.setInt(3, objfuncionariodto.getId_funcionario());
+
+            pstm.execute();
+            pstm.close();
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FuncionaioDAO Alterar" + erro);
+        }
     }
 
 }
