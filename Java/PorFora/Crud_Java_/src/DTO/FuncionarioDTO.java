@@ -3,7 +3,7 @@ package DTO;
 public class FuncionarioDTO {
 
     private String nome_funcionario, endereco_funcionario;
-    private int id_funcionario;
+    private int id_funcionario, cod_cargo;
 
     public String getNome_funcionario() {
         return nome_funcionario;
@@ -27,6 +27,14 @@ public class FuncionarioDTO {
 
     public void setId_funcionario(int id_funcionario) {
         this.id_funcionario = id_funcionario;
+    }
+
+    public int getCod_cargo() {
+        return cod_cargo;
+    }
+
+    public void setCod_cargo(int cod_cargo) {
+        this.cod_cargo = cod_cargo;
     }
 
 }

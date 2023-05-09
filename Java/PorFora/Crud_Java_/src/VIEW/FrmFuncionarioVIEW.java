@@ -6,8 +6,10 @@ package VIEW;
 
 import DAO.FuncionarioDAO;
 import DTO.FuncionarioDTO;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +25,7 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
     public FrmFuncionarioVIEW() {
         initComponents();
         listarValoresFuncionario();
+        restaurarDadosComboBoxCargo();
     }
 
     /**
@@ -48,6 +51,9 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         btnCarregarCampos = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        cbxCargo = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,7 +89,7 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "NOME", "ENDEREÇO"
+                "CÓDIGO", "NOME", "ENDEREÇO", "CARGO"
             }
         ));
         jScrollPane2.setViewportView(tabelaFuncionario);
@@ -113,6 +119,22 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Cargo");
+
+        cbxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCargoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +144,6 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnCarregarCampos)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
@@ -130,21 +151,36 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
                             .addComponent(txtNome)
                             .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnCadastrar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(btnCadastrar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnAlterar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnLimpar)))
                             .addGap(18, 18, 18)
-                            .addComponent(btnAlterar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnLimpar))
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnExcluir))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(148, 148, 148)
+                            .addComponent(cbxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -157,7 +193,8 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnAlterar)
-                    .addComponent(btnLimpar))
+                    .addComponent(btnLimpar)
+                    .addComponent(btnExcluir))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
@@ -188,6 +225,16 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         LimparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        ExcluirFuncionario();
+        listarValoresFuncionario();
+        LimparCampos();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void cbxCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCargoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,10 +275,13 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCarregarCampos;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JComboBox<String> cbxCargo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -272,13 +322,16 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
 
     private void CadastrarFuncionario() {
         String nome, endereco;
+        int codcargo;
 
         nome = txtNome.getText();
         endereco = txtEndereco.getText();
+        codcargo = id_cargo.get(cbxCargo.getSelectedIndex());
 
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setNome_funcionario(nome);
         objfuncionariodto.setEndereco_funcionario(endereco);
+        objfuncionariodto.setCod_cargo(codcargo);
 
         FuncionarioDAO objfuncionariodao = new FuncionarioDAO();
         objfuncionariodao.cadastrarFuncionario(objfuncionariodto);
@@ -306,6 +359,35 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
         
         FuncionarioDAO objfuncionariodao = new FuncionarioDAO();
         objfuncionariodao.AltrarFuncionario(objfuncionariodto);
+    }
+    
+    private void ExcluirFuncionario(){
+        int id_funcionario;
+        
+        id_funcionario = Integer.parseInt(txtCodigo.getText());
+        
+        FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
+        objfuncionariodto.setId_funcionario(id_funcionario);
+        
+        FuncionarioDAO objfuncionariodao = new FuncionarioDAO();
+        objfuncionariodao.ExcluirFuncionario(objfuncionariodto);
+    }
+    
+    Vector<Integer> id_cargo = new Vector<Integer>();
+    
+    public void restaurarDadosComboBoxCargo(){
+        try {
+            FuncionarioDAO objfuncionariodao = new FuncionarioDAO();
+            ResultSet rs = objfuncionariodao.listarCargo();
+            
+            while(rs.next()){
+                id_cargo.addElement(rs.getInt(1));
+                cbxCargo.addItem(rs.getString(2));
+            }
+            
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Carregar Cargo VIEW" + erro);
+        }
     }
 
 }
