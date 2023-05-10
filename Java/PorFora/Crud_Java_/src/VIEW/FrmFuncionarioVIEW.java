@@ -326,7 +326,7 @@ public class FrmFuncionarioVIEW extends javax.swing.JFrame {
 
         nome = txtNome.getText();
         endereco = txtEndereco.getText();
-        codcargo = id_cargo.get(cbxCargo.getSelectedIndex());
+        codcargo = id_cargo.get(cbxCargo.getSelectedIndex() - 1);
 
         FuncionarioDTO objfuncionariodto = new FuncionarioDTO();
         objfuncionariodto.setNome_funcionario(nome);
