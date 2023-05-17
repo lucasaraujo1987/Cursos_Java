@@ -14,11 +14,11 @@ public class ConexaoDAO {
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/sistemabiblioteca?user=root&password=19122009";
+            String url = "jdbc:mysql://localhost:3306/sistemabiblioteca?user=root&password=";
             con = DriverManager.getConnection(url);
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Erro de conexão" + e);
         }
         return con;
     }
