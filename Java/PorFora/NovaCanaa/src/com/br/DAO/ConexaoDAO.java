@@ -7,16 +7,17 @@ import javax.swing.JOptionPane;
 
 public class ConexaoDAO {
 
-    public Connection conexaoBD() {
+    public Connection conexaoBD() throws ClassNotFoundException {
         Connection con = null;
 
         try {
-            String url = "jdbc:mysql://nova_canaa?user=root&password=";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/nova_canaa?user=root&password=";
             con = DriverManager.getConnection(url);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao Conectar" + e);
-
+ 
         }
         return con;
     }
