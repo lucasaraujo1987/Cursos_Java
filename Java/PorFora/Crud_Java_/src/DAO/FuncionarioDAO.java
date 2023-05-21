@@ -18,7 +18,7 @@ public class FuncionarioDAO {
     ArrayList<CargoDTO> listacargo = new ArrayList();
 
     public void cadastrarFuncionario(FuncionarioDTO objFuncionarioDTO) {
-        String sql = "insert into funcionario (name_funcionario, endereco_funcionario, cod_cargo values (?,?,?)";
+        String sql = "insert into funcionario (name_funcionario, endereco_funcionario, cod_cargo) values (?,?,?)";
 
         conn = new ConexaoDAO().conectaBD();
 
