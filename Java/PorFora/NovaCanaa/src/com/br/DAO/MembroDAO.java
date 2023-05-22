@@ -19,8 +19,7 @@ public class MembroDAO {
     
     public void cadastrarMembro(MembroDTO objMembroDTO) throws ClassNotFoundException{
         
-        String sql = "insert into membro (cpf_membro, nome_membro, sobrenome_membro,"
-                + "pai_membro, mae_membro, nascimento_membro, batismo_membro, id_membro) values (?,?,?,?,?,?,?,?)";
+        String sql = "insert into membro (cpf_membro, nome_membro, sobrenome_membro, pai_membro, mae_membro, nascimento_membro, batismo_membro, id_membro) values (?,?,?,?,?,?,?,?)";
         
         con = new ConexaoDAO().conexaoBD();
         
@@ -57,6 +56,7 @@ public class MembroDAO {
                 MembroDTO objMembroDTO = new MembroDTO();
                 objMembroDTO.setCpf_membro(rs.getString("cpf_membro"));
                 objMembroDTO.setNome_membro(rs.getString("nome_membro"));
+                objMembroDTO.setSobrenome_membro(rs.getString("sobrenome_membro"));
                 objMembroDTO.setPai_membro(rs.getString("pai_membro"));
                 objMembroDTO.setMae_membro(rs.getString("mae_membro"));
                 objMembroDTO.setNascimento_membro(rs.getDate("nascimento_membro"));

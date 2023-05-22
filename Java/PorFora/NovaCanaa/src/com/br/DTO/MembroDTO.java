@@ -73,4 +73,8 @@ public class MembroDTO {
         this.batismo_membro = batismo_membro;
     }
 
+    public Object getNascimento_membro(String format) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

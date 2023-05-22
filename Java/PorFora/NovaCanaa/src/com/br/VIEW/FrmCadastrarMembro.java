@@ -7,6 +7,7 @@ package com.br.VIEW;
 import com.br.DAO.MembroDAO;
 import com.br.DTO.MembroDTO;
 import java.awt.Color;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
     /**
      * Creates new form FrmAdicionarMembro
      */
-    public FrmCadastrarMembro() {
+    public FrmCadastrarMembro() throws ParseException {
         getContentPane().setBackground(Color.black);
         initComponents();
     }
@@ -39,7 +40,6 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtSobrenome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtCPF = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNomePai = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -50,6 +50,7 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
         txtBatismo = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        txtCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,9 +72,6 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("CPF");
 
-        txtCPF.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtCPF.setForeground(new java.awt.Color(0, 0, 0));
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Pai");
@@ -93,6 +91,11 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
         jLabel6.setText("Data de Nascimento");
 
         txtNascimento.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtNascimento.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -100,7 +103,11 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
         jLabel7.setText("Data de Batismo");
 
         txtBatismo.setForeground(new java.awt.Color(0, 0, 0));
-        txtBatismo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        try {
+            txtBatismo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtBatismo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
@@ -128,6 +135,14 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
             }
         });
 
+        txtCPF.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCPF.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,20 +162,20 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel3)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtBatismo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7)))
+                                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                    .addComponent(txtCPF))
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(txtSobrenome)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtNascimento))
+                                        .addGap(83, 83, 83)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(txtBatismo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txtNomeMae)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(281, 281, 281)
@@ -185,10 +200,10 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBatismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtBatismo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNascimento, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
@@ -199,10 +214,11 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
                 .addComponent(txtNomeMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jButton1)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -247,7 +263,11 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCadastrarMembro().setVisible(true);
+                try {
+                    new FrmCadastrarMembro().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmCadastrarMembro.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -263,7 +283,7 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JFormattedTextField txtBatismo;
-    private javax.swing.JTextField txtCPF;
+    private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JFormattedTextField txtNascimento;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeMae;
@@ -272,6 +292,7 @@ public class FrmCadastrarMembro extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void CadastrarMembro() throws ClassNotFoundException{
+        
         String cpf_membro, nome_membro, sobrenome_membro, pai_membro, mae_membro;
         Date nascimento_membro, batismo_membro;
         

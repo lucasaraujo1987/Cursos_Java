@@ -7,10 +7,10 @@ package com.br.VIEW;
 import com.br.DAO.MembroDAO;
 import com.br.DTO.MembroDTO;
 import java.awt.Color;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,8 +24,8 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
      * Creates new form FrmPrincipalVIEW
      */
     public FrmPrincipalVIEW() {
-        getContentPane().setBackground(Color.white);
         initComponents();
+        getContentPane().setBackground(Color.white);
         ListarAniversarioMembros();
     }
 
@@ -108,6 +108,7 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
         menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 30));
@@ -144,15 +145,31 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "NOME", "SOBRENOME", "NASCIMENTO"
             }
-        ));
-        tabelaMembro.setGridColor(new java.awt.Color(0, 51, 51));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaMembro.setGridColor(new java.awt.Color(0, 102, 102));
         tabelaMembro.setSelectionBackground(new java.awt.Color(51, 255, 204));
         tabelaMembro.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tabelaMembro.getTableHeader().setResizingAllowed(false);
         tabelaMembro.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaMembro);
+        if (tabelaMembro.getColumnModel().getColumnCount() > 0) {
+            tabelaMembro.getColumnModel().getColumn(0).setResizable(false);
+            tabelaMembro.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tabelaMembro.getColumnModel().getColumn(1).setResizable(false);
+            tabelaMembro.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaMembro.getColumnModel().getColumn(2).setResizable(false);
+            tabelaMembro.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,7 +194,7 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -187,7 +204,12 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FrmCadastrarMembro objFrmCadastrarMembro = new FrmCadastrarMembro();
+        FrmCadastrarMembro objFrmCadastrarMembro = null;
+        try {
+            objFrmCadastrarMembro = new FrmCadastrarMembro();
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmPrincipalVIEW.class.getName()).log(Level.SEVERE, null, ex);
+        }
         objFrmCadastrarMembro.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -250,11 +272,6 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void ListarAniversarioMembros() {
-//        Calendar calendario = Calendar.getInstance();
-//        Date data = calendario.getTime();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//        
-//        String sdfdata = sdf.format(data);
         
         try {
             MembroDAO objMembroDAO = new MembroDAO();
@@ -266,8 +283,8 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
             for (int num = 0; num < lista_membro.size(); num++) {
                 model.addRow(new Object[]{
                     lista_membro.get(num).getNome_membro(),
-                    lista_membro.get(num).getNascimento_membro(),
-                    lista_membro.get(num).getBatismo_membro()
+                    lista_membro.get(num).getSobrenome_membro(),
+                    lista_membro.get(num).getNascimento_membro()
                 });
 
             }
@@ -291,7 +308,7 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
                 model.addRow(new Object[]{
                     lista_membro.get(num).getCpf_membro(),
                     lista_membro.get(num).getNome_membro(),
-                    lista_membro.get(num).getBatismo_membro(),
+                    lista_membro.get(num).getSobrenome_membro(),
                     lista_membro.get(num).getPai_membro(),
                     lista_membro.get(num).getMae_membro(),
                     lista_membro.get(num).getNascimento_membro(),
