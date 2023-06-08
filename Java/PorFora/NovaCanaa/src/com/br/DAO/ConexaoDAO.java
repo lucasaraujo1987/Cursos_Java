@@ -16,7 +16,7 @@ public class ConexaoDAO {
             con = DriverManager.getConnection(url);
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Conectar" + e);
+            JOptionPane.showMessageDialog(null, "Erro ao Conectar " + e);
  
         }
         return con;

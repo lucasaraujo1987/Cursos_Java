@@ -4,10 +4,9 @@ import java.util.Date;
 
 public class MembroDTO {
 
-    private int id_membro;
-    private String cpf_membro, nome_membro, sobrenome_membro, pai_membro, mae_membro;
-    private Date nascimento_membro, batismo_membro;
-    
+    private int id_membro, idade_membro;
+    private String cpf_membro, nome_membro, sobrenome_membro, pai_membro, mae_membro, nascimento_membro, batismo_membro, ano_nasc;  
+    private Date ano_atual;
 
     public int getId_membro() {
         return id_membro;
@@ -57,24 +56,44 @@ public class MembroDTO {
         this.mae_membro = mae_membro;
     }
 
-    public Date getNascimento_membro() {
+    public String getNascimento_membro() {
         return nascimento_membro;
     }
 
-    public void setNascimento_membro(Date nascimento_membro) {
+    public void setNascimento_membro(String nascimento_membro) {
         this.nascimento_membro = nascimento_membro;
     }
 
-    public Date getBatismo_membro() {
+    public String getBatismo_membro() {
         return batismo_membro;
     }
 
-    public void setBatismo_membro(Date batismo_membro) {
+    public void setBatismo_membro(String batismo_membro) {
         this.batismo_membro = batismo_membro;
     }
 
-    public Object getNascimento_membro(String format) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String getAno_nasc() {
+        return ano_nasc;
+    }
+
+    public void setAno_nasc(String ano_nasc) {
+        this.ano_nasc = ano_nasc;
+    }
+
+    public Date getAno_atual() {
+        return ano_atual;
+    }
+
+    public void setAno_atual(Date ano_atual) {
+        this.ano_atual = ano_atual;
+    }
+
+    public int getIdade_membro() {
+        return idade_membro;
+    }
+
+    public void setIdade_membro(int idade_membro) {
+        this.idade_membro = idade_membro;
     }
 
 }

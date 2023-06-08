@@ -54,9 +54,10 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
         menu1 = new java.awt.Menu();
         menu2 = new java.awt.Menu();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnAdicionarMembro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaMembro = new javax.swing.JTable();
+        btnListaDeMembros = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -108,7 +109,6 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
         menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 30));
@@ -124,20 +124,19 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
             .addGap(0, 30, Short.MAX_VALUE)
         );
 
-        jButton1.setBackground(new java.awt.Color(0, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/AdicionarMembro.png"))); // NOI18N
-        jButton1.setText("<html>ADICIONAR <br> MEMBRO</html>");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionarMembro.setBackground(new java.awt.Color(0, 255, 255));
+        btnAdicionarMembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAdicionarMembro.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdicionarMembro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/AdicionarMembro.png"))); // NOI18N
+        btnAdicionarMembro.setText("<html>ADICIONAR <br> MEMBRO</html>");
+        btnAdicionarMembro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdicionarMembro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAdicionarMembroActionPerformed(evt);
             }
         });
 
         tabelaMembro.setBackground(new java.awt.Color(255, 255, 255));
-        tabelaMembro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tabelaMembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         tabelaMembro.setForeground(new java.awt.Color(0, 0, 0));
         tabelaMembro.setModel(new javax.swing.table.DefaultTableModel(
@@ -145,31 +144,47 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
 
             },
             new String [] {
-                "NOME", "SOBRENOME", "NASCIMENTO"
+                "COD.", "NOME", "SOBRENOME", "IDADE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tabelaMembro.setGridColor(new java.awt.Color(0, 102, 102));
-        tabelaMembro.setSelectionBackground(new java.awt.Color(51, 255, 204));
+        tabelaMembro.setGridColor(new java.awt.Color(102, 102, 102));
+        tabelaMembro.setRowMargin(5);
+        tabelaMembro.setSelectionBackground(new java.awt.Color(102, 102, 102));
         tabelaMembro.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        tabelaMembro.setShowHorizontalLines(true);
         tabelaMembro.getTableHeader().setResizingAllowed(false);
         tabelaMembro.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabelaMembro);
         if (tabelaMembro.getColumnModel().getColumnCount() > 0) {
             tabelaMembro.getColumnModel().getColumn(0).setResizable(false);
-            tabelaMembro.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tabelaMembro.getColumnModel().getColumn(0).setPreferredWidth(10);
             tabelaMembro.getColumnModel().getColumn(1).setResizable(false);
-            tabelaMembro.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaMembro.getColumnModel().getColumn(1).setPreferredWidth(60);
             tabelaMembro.getColumnModel().getColumn(2).setResizable(false);
-            tabelaMembro.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tabelaMembro.getColumnModel().getColumn(2).setPreferredWidth(130);
+            tabelaMembro.getColumnModel().getColumn(3).setResizable(false);
+            tabelaMembro.getColumnModel().getColumn(3).setPreferredWidth(30);
         }
+
+        btnListaDeMembros.setBackground(new java.awt.Color(0, 51, 51));
+        btnListaDeMembros.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnListaDeMembros.setForeground(new java.awt.Color(255, 255, 255));
+        btnListaDeMembros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ListaDeMembros.png"))); // NOI18N
+        btnListaDeMembros.setText("<html>LISTA DE<br> MEMBROS</html>");
+        btnListaDeMembros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnListaDeMembros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListaDeMembrosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,22 +194,25 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(btnAdicionarMembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnListaDeMembros, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionarMembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListaDeMembros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -203,7 +221,7 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAdicionarMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMembroActionPerformed
         FrmCadastrarMembro objFrmCadastrarMembro = null;
         try {
             objFrmCadastrarMembro = new FrmCadastrarMembro();
@@ -212,7 +230,13 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
         }
         objFrmCadastrarMembro.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAdicionarMembroActionPerformed
+
+    private void btnListaDeMembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaDeMembrosActionPerformed
+        FrmListaDeMembros objFrmListaDeMembros = new FrmListaDeMembros();
+        objFrmListaDeMembros.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnListaDeMembrosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,7 +274,8 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAdicionarMembro;
+    private javax.swing.JButton btnListaDeMembros;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
@@ -271,8 +296,9 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
     private javax.swing.JTable tabelaMembro;
     // End of variables declaration//GEN-END:variables
 
+
     private void ListarAniversarioMembros() {
-        
+
         try {
             MembroDAO objMembroDAO = new MembroDAO();
             DefaultTableModel model = (DefaultTableModel) tabelaMembro.getModel();
@@ -282,9 +308,10 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
 
             for (int num = 0; num < lista_membro.size(); num++) {
                 model.addRow(new Object[]{
+                    lista_membro.get(num).getId_membro(),
                     lista_membro.get(num).getNome_membro(),
                     lista_membro.get(num).getSobrenome_membro(),
-                    lista_membro.get(num).getNascimento_membro()
+                    lista_membro.get(num).getIdade_membro() + " anos"
                 });
 
             }
@@ -293,33 +320,6 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
 
         }
 
-    }
-
-    private void ListarMembros() {
-
-        try {
-            MembroDAO objMembroDAO = new MembroDAO();
-            DefaultTableModel model = (DefaultTableModel) tabelaMembro.getModel();
-            model.setNumRows(0);
-
-            ArrayList<MembroDTO> lista_membro = objMembroDAO.pesquisarMembro();
-
-            for (int num = 0; num < lista_membro.size(); num++) {
-                model.addRow(new Object[]{
-                    lista_membro.get(num).getCpf_membro(),
-                    lista_membro.get(num).getNome_membro(),
-                    lista_membro.get(num).getSobrenome_membro(),
-                    lista_membro.get(num).getPai_membro(),
-                    lista_membro.get(num).getMae_membro(),
-                    lista_membro.get(num).getNascimento_membro(),
-                    lista_membro.get(num).getBatismo_membro()
-                });
-
-            }
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Exibir Lista de Membros " + e);
-
-        }
     }
 
 }
