@@ -17,15 +17,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author lukas
  */
-public class FrmListaDeMembros extends javax.swing.JFrame {
+public class FrmListaDeMembrosVIEW extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmListaDeMembros
      */
-    public FrmListaDeMembros() {
-        getContentPane().setBackground(Color.black);
+    public FrmListaDeMembrosVIEW() {
+        getContentPane().setBackground(Color.DARK_GRAY);
         initComponents();
-        ListarMembros();
     }
 
     /**
@@ -40,7 +39,6 @@ public class FrmListaDeMembros extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaMembro = new javax.swing.JTable();
-        btnExcluirMembro = new javax.swing.JButton();
         btnTelaPrincipal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,18 +96,6 @@ public class FrmListaDeMembros extends javax.swing.JFrame {
             tabelaMembro.getColumnModel().getColumn(5).setPreferredWidth(80);
         }
 
-        btnExcluirMembro.setBackground(new java.awt.Color(0, 0, 255));
-        btnExcluirMembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnExcluirMembro.setForeground(new java.awt.Color(255, 255, 255));
-        btnExcluirMembro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ExcluirMembro.png"))); // NOI18N
-        btnExcluirMembro.setText("<html>EXCLUIR<br> MEMBRO</html>");
-        btnExcluirMembro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcluirMembro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirMembroActionPerformed(evt);
-            }
-        });
-
         btnTelaPrincipal.setBackground(new java.awt.Color(153, 255, 255));
         btnTelaPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnTelaPrincipal.setForeground(new java.awt.Color(51, 51, 51));
@@ -136,18 +122,14 @@ public class FrmListaDeMembros extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(134, 134, 134)
                 .addComponent(btnTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluirMembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExcluirMembro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTelaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnTelaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -156,18 +138,6 @@ public class FrmListaDeMembros extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnExcluirMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMembroActionPerformed
-
-        try {
-            ExcluirMembro();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmListaDeMembros.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        ListarMembros();
-
-    }//GEN-LAST:event_btnExcluirMembroActionPerformed
 
     private void btnTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelaPrincipalActionPerformed
 
@@ -194,64 +164,33 @@ public class FrmListaDeMembros extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmListaDeMembros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaDeMembrosVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmListaDeMembros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaDeMembrosVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmListaDeMembros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaDeMembrosVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmListaDeMembros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmListaDeMembrosVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmListaDeMembros().setVisible(true);
+                new FrmListaDeMembrosVIEW().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExcluirMembro;
     private javax.swing.JButton btnTelaPrincipal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaMembro;
     // End of variables declaration//GEN-END:variables
 
-    private void ListarMembros() {
 
-        try {
-            MembroDAO objMembroDAO = new MembroDAO();
-            DefaultTableModel model = (DefaultTableModel) tabelaMembro.getModel();
-            model.setNumRows(0);
 
-            ArrayList<MembroDTO> lista_membro = objMembroDAO.pesquisarMembro();
-
-            for (int num = 0; num < lista_membro.size(); num++) {
-                model.addRow(new Object[]{
-                    lista_membro.get(num).getId_membro(),
-                    lista_membro.get(num).getNome_membro(),
-                    lista_membro.get(num).getSobrenome_membro(),
-                    lista_membro.get(num).getCpf_membro(),
-                    lista_membro.get(num).getNascimento_membro(),
-                    lista_membro.get(num).getBatismo_membro()
-                });
-
-            }
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Exibir Lista de Membros " + e);
-
-        }
-    }
     
-    private void ExcluirMembro() throws ClassNotFoundException{
-        MembroDTO objMembroDTO = new MembroDTO();
-        MembroDAO objMembroDAO = new MembroDAO();
-        
-        objMembroDTO.setId_membro((int) tabelaMembro.getValueAt(tabelaMembro.getSelectedRow(), 0));
-        objMembroDAO.ExcluirMembro(objMembroDTO);
-        
-    }
 }

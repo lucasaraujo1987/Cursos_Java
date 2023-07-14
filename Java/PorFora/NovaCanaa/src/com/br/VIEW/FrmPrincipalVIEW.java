@@ -25,7 +25,7 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
      */
     public FrmPrincipalVIEW() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+        getContentPane().setBackground(Color.DARK_GRAY);
         ListarAniversarioMembros();
     }
 
@@ -144,11 +144,11 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
 
             },
             new String [] {
-                "COD.", "NOME", "SOBRENOME", "IDADE"
+                "DIA", "NOME", "IDADE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -167,11 +167,9 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
             tabelaMembro.getColumnModel().getColumn(0).setResizable(false);
             tabelaMembro.getColumnModel().getColumn(0).setPreferredWidth(10);
             tabelaMembro.getColumnModel().getColumn(1).setResizable(false);
-            tabelaMembro.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tabelaMembro.getColumnModel().getColumn(1).setPreferredWidth(225);
             tabelaMembro.getColumnModel().getColumn(2).setResizable(false);
-            tabelaMembro.getColumnModel().getColumn(2).setPreferredWidth(130);
-            tabelaMembro.getColumnModel().getColumn(3).setResizable(false);
-            tabelaMembro.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tabelaMembro.getColumnModel().getColumn(2).setPreferredWidth(20);
         }
 
         btnListaDeMembros.setBackground(new java.awt.Color(0, 51, 51));
@@ -194,15 +192,15 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(btnAdicionarMembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnListaDeMembros, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,8 +210,8 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarMembro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnListaDeMembros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
@@ -222,9 +220,9 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarMembroActionPerformed
-        FrmCadastrarMembro objFrmCadastrarMembro = null;
+        FrmCadastrarMembroVIEW objFrmCadastrarMembro = null;
         try {
-            objFrmCadastrarMembro = new FrmCadastrarMembro();
+            objFrmCadastrarMembro = new FrmCadastrarMembroVIEW();
         } catch (ParseException ex) {
             Logger.getLogger(FrmPrincipalVIEW.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -233,7 +231,7 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarMembroActionPerformed
 
     private void btnListaDeMembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaDeMembrosActionPerformed
-        FrmListaDeMembros objFrmListaDeMembros = new FrmListaDeMembros();
+        FrmListaDeMembrosVIEW objFrmListaDeMembros = new FrmListaDeMembrosVIEW();
         objFrmListaDeMembros.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnListaDeMembrosActionPerformed
@@ -304,14 +302,13 @@ public class FrmPrincipalVIEW extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tabelaMembro.getModel();
             model.setNumRows(0);
 
-            ArrayList<MembroDTO> lista_membro = objMembroDAO.pesquisarMembro();
+            ArrayList<MembroDTO> lista_mes = objMembroDAO.MesAniversarioMembro();
 
-            for (int num = 0; num < lista_membro.size(); num++) {
+            for (int num = 0; num < lista_mes.size(); num++) {
                 model.addRow(new Object[]{
-                    lista_membro.get(num).getId_membro(),
-                    lista_membro.get(num).getNome_membro(),
-                    lista_membro.get(num).getSobrenome_membro(),
-                    lista_membro.get(num).getIdade_membro() + " anos"
+                    lista_mes.get(num).getNascimento_membro(),
+                    lista_mes.get(num).getNome_membro(),
+                    lista_mes.get(num).getIdade_membro() + " anos"
                 });
 
             }
